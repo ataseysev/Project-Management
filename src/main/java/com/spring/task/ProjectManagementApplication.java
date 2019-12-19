@@ -10,6 +10,8 @@ public class ProjectManagementApplication {
         SpringApplication.run(ProjectManagementApplication.class, args);
 
         System.out.println("Hello there");
+        System.out.println("Hello there again");
+
     }
 
 }
