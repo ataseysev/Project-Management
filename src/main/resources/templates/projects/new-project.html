@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace = "layouts :: header"></head>
+
+<body>
+
+<nav th:replace = "layouts :: navbar"></nav>
+
+<div class="container">
+    <form action="/projects/save" th:object = "${project}" method="POST">
+        <!-- we need to bind project entitiy to this form,it is unbinded form now.there is no java object to bind this form -->
+        <!-- to do that we need to bind project objcet to this form which is th:object = "${project}" but we need to go to
+         project class and we need to create this binding with model object.-->
+        <input type="text" placeholder="Project Name" th:field="${project.name}">
+        <!-- we bind the fields ,like this project.name  -->
+        <!-- when user select one of the options it will be mapped to the project.stage attr..-->
+        <select th:field="${project.stage}">
+            <option th th:value="NOTSARTED"> Not Started</option>
+            <option th th:value="INPROGRESS"> In Progress</option>
+            <option th th:value="COMPLETED"> Completed</option>
+        </select>
+
+        <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+        <!-- we binded this from to the project entity/class. when we click submit new project will be created but will not
+        be in database yet. we need to create crud repository it is kinda data access object we can delete and insert
+         projects from database with this crud, we also need to create createProject method in controller
+         it will handle to save the data to the database with crud thingy
+         h2 database will do it online-->
+
+        <select th:field = "*{employees}" multiple = "multiple">
+            <option th:each = "employee : ${allEmployees}"
+                    th:value = "${employee.employeeId}"
+                    th:text = "${employee.firstName}" >
+
+            </option>
+        </select>
+        <button type="submit">Create Project</button>
+        <!-- this button does not do anything, it should send the data to the database and new project should be created-->
+        <!--this submit button should send us to "/projects/save" above and it is actually create new project in database, it is endpoint -->
+    </form>
+
+</div>
+
+</body>
+</html>
+<!---->
